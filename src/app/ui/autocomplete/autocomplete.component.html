@@ -1,0 +1,4 @@
+<ng-container *ngFor="let val of filteredValues">
+    <button [hidden]="val === searchValue" (click)="emitAutocomplete(val)" type="button" class="btn btn-light"
+        [innerHTML]=" val | highlight : searchValue"></button> <br>
+</ng-container>

@@ -1,18 +1,16 @@
 <div class="ap-container">
   <h1 id="main_title">Welcome to type ahead, control value accessor and RxJs practice</h1>
-  <form class="mt-4 mb-2" novalidate>
-    <input [formControl]="searchState" placeholder="Search US state..." autocomplete="off" class="form-control"
-      type="text" />
-    <ng-container *ngFor="let state of filteredStates">
-      <button [hidden]="state === searchState.value" (click)="fillInput(state)" type="button"
-        class="btn btn-light">{{ state }}</button> <br>
-    </ng-container>
-  </form>
 
-  <app-select-rating [formControl]="stars" [params]="ratingParams"></app-select-rating>
-  <pre>
+  <input class="mt-4 mb-2" [formControl]="searchState" placeholder="Search US state..." class="form-control"
+    type="text" />
+  <app-autocomplete [options]="states" [searchValue]="searchState.value" (autocomplete)="getSearchOutput($event)">
+  </app-autocomplete>
+
+  <div class="mt-4">
+    <app-select-rating [formControl]="stars" [params]="ratingParams"></app-select-rating>
+    <pre>
     <span [ngClass]="{'badge-success' : stars.valid, 'badge-danger':  !stars.valid}"> Valid: {{stars.valid}}</span>
     <span [ngClass]="{'badge-danger': stars.errors, 'badge-success': !stars.errors }"> Errors: {{stars.errors | json}}</span>
-    
   </pre>
+  </div>
 </div>
