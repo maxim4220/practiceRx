@@ -1,6 +1,6 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { ratingParams } from './select-rating.interface';
+import { RatingParams } from './select-rating.interface';
 
 @Component({
   selector: 'app-select-rating',
@@ -16,7 +16,7 @@ import { ratingParams } from './select-rating.interface';
   styleUrls: ['./select-rating.component.scss']
 })
 export class SelectRatingComponent implements ControlValueAccessor {
-  @Input() params: ratingParams;
+  @Input() params: RatingParams;
 
   public currentStar: number;
   // Function to call when the rating changes.
@@ -24,7 +24,7 @@ export class SelectRatingComponent implements ControlValueAccessor {
   // Function to call when the input is touched (when a star is clicked).
   public onTouched: () => void;
 
-  private rateSelected = false;
+  private rateDisabled = false;
 
   // Allows Angular to update the model (rating).
   // Update the model and changes needed for the view here.
@@ -43,21 +43,23 @@ export class SelectRatingComponent implements ControlValueAccessor {
   }
   // Allows Angular to disable the input.
   public setDisabledState(isDisabled: boolean): void {
-
+    this.rateDisabled = isDisabled;
   }
 
   public mouseMovement(rate: number, mouseEnter: boolean) {
-    if (!this.rateSelected) {
+    if (!this.rateDisabled) {
       return this.currentStar = mouseEnter ? rate : null;
     }
   }
 
-  public selectRating(rate: number) {
-    this.mouseMovement(rate, true);
-    this.onChanged(rate);
-    this.onTouched();
-    this.validate();
-    this.rateSelected = true;
+  public setRating(rate: number): void {
+    if (!this.rateDisabled) {
+      this.currentStar = rate;
+      this.onChanged(rate);
+      this.onTouched();
+      this.validate();
+      this.rateDisabled = true;
+    }
   }
 
   private validate() {
