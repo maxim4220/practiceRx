@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Output, EventEmitter, TemplateRef, SimpleChanges } from '@angular/core';
+import {Component, Input, TemplateRef} from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',

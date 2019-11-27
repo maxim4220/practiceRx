@@ -1,6 +1,6 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { RatingParams } from './select-rating.interface';
+import {Component, forwardRef, Input} from '@angular/core';
+import {ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {RatingParams} from './select-rating.interface';
 
 @Component({
   selector: 'app-select-rating',
@@ -31,16 +31,19 @@ export class SelectRatingComponent implements ControlValueAccessor {
   public writeValue(val: number): void {
     this.currentStar = val;
   }
+
   // Allows Angular to register a function to call when the model (rating) changes.
   // Save the function as a property to call later here.
   public registerOnChange(fn: (rating: number) => void): void {
     this.onChanged = fn;
   }
+
   // Allows Angular to register a function to call when the input has been touched.
   // Save the function as a property to call later here.
   public registerOnTouched(fn): void {
     this.onTouched = fn;
   }
+
   // Allows Angular to disable the input.
   public setDisabledState(isDisabled: boolean): void {
     this.rateDisabled = isDisabled;
@@ -63,7 +66,7 @@ export class SelectRatingComponent implements ControlValueAccessor {
   }
 
   private validate() {
-    return this.currentStar > this.params.maxStars ? { tooHigh: true } : this.currentStar < this.params.minStars ? { tooLow: true } : null;
+    return this.currentStar > this.params.maxStars ? {tooHigh: true} : this.currentStar < this.params.minStars ? {tooLow: true} : null;
   }
 
 }

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectRatingComponent } from './select-rating.component';
+import {SelectRatingComponent} from './select-rating.component';
 
 describe('SelectRatingComponent', () => {
   let component: SelectRatingComponent;
@@ -8,9 +8,9 @@ describe('SelectRatingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectRatingComponent ]
+      declarations: [SelectRatingComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

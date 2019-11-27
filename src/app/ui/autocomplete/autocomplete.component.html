@@ -4,6 +4,11 @@
 </ng-container> -->
 
 <!-- parent empty div is added so that we could apply required styles for the search options -->
-<div>
-    <ng-content select="[autocompleteOptions]"></ng-content>
-</div>
+<ng-template #autocompleteBlock>
+    <div>
+        <ng-content select="[autocompleteOptions]"></ng-content>
+    </div>
+</ng-template>
+
+
+<ng-container *ngTemplateOutlet="autocompleteBlock"></ng-container>
