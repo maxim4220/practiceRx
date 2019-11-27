@@ -9,10 +9,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @HostListener('keydown.enter')
-  fillInputOnEnter() {
+  @HostListener('keydown.enter', ['$event'])
+  fillInputOnEnter(event) {
     if (this.filteredValues.length > 0) {
-      this.fillInput(this.filteredValues[0]);
+      // this.fillInput(this.filteredValues[0]);
+      if(this.isHovered) {
+        this.fillInput(this.isHovered);
+      } else {
+        this.fillInput(this.filteredValues[0]);
+      }
     }
   }
 
@@ -37,19 +42,20 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   private subs: Subscription;
+  private isHovered;
   // public getSearchOutput(completeVal): void {
   //   this.searchState.setValue(completeVal);
   // }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getSearchResult();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  public fillInput(state) {
+  public fillInput(state): void {
     this.searchState.setValue(state);
     this.filteredValues = null;
   }
@@ -64,6 +70,14 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(val => {
         this.filteredValues = val;
       });
+  }
+
+  public selectActiveMatch(value: string, active: boolean):void {
+   if(active) {
+    this.isHovered = value;
+   } else {
+     this.isHovered = null;
+   }
   }
 
 }
