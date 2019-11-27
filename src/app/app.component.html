@@ -3,7 +3,17 @@
 
   <input class="mt-4 mb-2" [formControl]="searchState" placeholder="Search US state..." class="form-control"
     type="text" />
-  <app-autocomplete [options]="states" [searchValue]="searchState.value" (autocomplete)="getSearchOutput($event)">
+  <!-- <app-autocomplete [options]="states" [searchValue]="searchState.value" (autocomplete)="getSearchOutput($event)">
+  </app-autocomplete> -->
+
+  <app-autocomplete>
+    <ng-container autocompleteOptions>
+        <button disabled *ngIf="filteredValues?.length === 0 && searchState.value" class="btn btn-light ap-ahead">No
+            result...</button>
+      <button *ngFor="let val of filteredValues" [hidden]="val === searchState.value" (click)="fillInput(val)" type="button" 
+      class="btn btn-light ap-ahead"
+        [innerHTML]=" val | highlight : searchState.value"></button> <br>
+    </ng-container>
   </app-autocomplete>
 
   <div class="mt-4">

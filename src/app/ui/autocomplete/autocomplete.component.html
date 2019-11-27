@@ -1,4 +1,9 @@
-<ng-container *ngFor="let val of filteredValues">
+<!-- <ng-container *ngFor="let val of filteredValues">
     <button [hidden]="val === searchValue" (click)="emitAutocomplete(val)" type="button" class="btn btn-light"
         [innerHTML]=" val | highlight : searchValue"></button> <br>
-</ng-container>
+</ng-container> -->
+
+<!-- parent empty div is added so that we could apply required styles for the search options -->
+<div>
+    <ng-content select="[autocompleteOptions]"></ng-content>
+</div>

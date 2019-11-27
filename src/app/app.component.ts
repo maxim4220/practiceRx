@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   public title = 'practiceRx';
   // TypeAhead properties
   public searchState: FormControl = new FormControl('');
-  public filteredStates = [];
+  public filteredValues = [];
   public states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
     'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
     'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
@@ -27,8 +29,34 @@ export class AppComponent {
     totalStars: 10
   };
 
-  public getSearchOutput(completeVal): void {
-    this.searchState.setValue(completeVal);
+  private subs: Subscription;
+  // public getSearchOutput(completeVal): void {
+  //   this.searchState.setValue(completeVal);
+  // }
+
+  ngOnInit() {
+    this.getSearchResult();
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+  public fillInput(state) {
+    this.searchState.setValue(state);
+    this.filteredValues = null;
+  }
+
+  private getSearchResult(): void {
+    this.subs = this.searchState.valueChanges
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        map(term => term.length < 2 ? [] : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+      )
+      .subscribe(val => {
+        this.filteredValues = val;
+      });
   }
 
 }
