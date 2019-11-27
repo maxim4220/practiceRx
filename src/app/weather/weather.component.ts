@@ -7,19 +7,20 @@ import { WeatherService } from '../services/weather.service';
   styleUrls: ['./weather.component.scss']
 })
 export class WeatherComponent implements OnInit {
-  private counter = 0;
   public weatherData = [];
+  private counter = 0;
+  private requestParams = [];
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
-    const requestParams = ['q=London,uk', 'q=Kiev,ua', 'q=Moscow,ru', 'q=Rome,it'];
-    this.showForkWeather(requestParams);
-    // this.showParallelWeather(requestParams);
-    //this.showWeatherInOrder(requestParams);
-    // this.showSwitchWeather(requestParams);
+    this.requestParams = ['q=London,uk', 'q=Kiev,ua', 'q=Moscow,ru', 'q=Rome,it'];
+    //  this.showForkWeather(this.requestParams);
+    this.showParallelWeather(this.requestParams);
+    //this.showWeatherInOrder(this.requestParams);
+    // this.showSwitchWeather(this.requestParams);
     // uncomment below to use a regular call
-    // requestParams.forEach(element => {
+    // this.requestParams.forEach(element => {
     //   this.showWeatherAsIs(element)
     // });
     setTimeout(() => {
@@ -60,7 +61,14 @@ export class WeatherComponent implements OnInit {
         console.log('res merged (mergeMap)', this.counter, res.name);
         this.weatherData.push(res);
         this.counter++;
-      })
+
+        // May need to sort the array in order like in 'requestParams' property
+        this.weatherData.sort((a, b) => {
+          const aIndex = this.requestParams.findIndex(el => el.includes(a.name));
+          const bIndex = this.requestParams.findIndex(el => el.includes(b.name));
+          return aIndex - bIndex;
+        });
+      });
   }
 
   private showForkWeather(cityParams) {
