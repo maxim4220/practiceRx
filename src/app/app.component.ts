@@ -9,11 +9,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @HostListener('keydown.enter', ['$event'])
+  @HostListener('keydown.enter',)
   fillInputOnEnter(event) {
     if (this.filteredValues.length > 0) {
-      // this.fillInput(this.filteredValues[0]);
-      if(this.isHovered) {
+      if (this.isHovered) {
         this.fillInput(this.isHovered);
       } else {
         this.fillInput(this.filteredValues[0]);
