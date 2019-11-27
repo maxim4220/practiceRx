@@ -10,5 +10,8 @@
     </div>
 </ng-template>
 
+<ng-template #defaultBlock>
+    <button class="btn btn-light ap-ahead" disabled> start typing...</button>
+</ng-template>
 
-<ng-container *ngTemplateOutlet="autocompleteBlock"></ng-container>
+<ng-container *ngTemplateOutlet="showAutoComplete ? autocompleteBlock : defaultBlock"></ng-container>

@@ -1,4 +1,4 @@
-import {Component, Input, TemplateRef} from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
@@ -7,6 +7,7 @@ import {Component, Input, TemplateRef} from '@angular/core';
 })
 
 export class AutocompleteComponent {
+
   // @Input() options = [];
   // @Input() searchValue: string;
   // @Output() autocomplete = new EventEmitter<string>();
@@ -19,5 +20,6 @@ export class AutocompleteComponent {
   // }
 
   @Input() ngTemplateOutlet: TemplateRef<any> | null;
+  public showAutoComplete = true;
 
 }

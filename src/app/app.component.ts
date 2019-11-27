@@ -1,7 +1,7 @@
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {Subscription} from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,13 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  @HostListener('keydown.enter')
+  fillInputOnEnter() {
+    if (this.filteredValues.length === 1) {
+      this.fillInput(this.filteredValues[0]);
+    }
+  }
+
   public title = 'practiceRx';
   // TypeAhead properties
   public searchState: FormControl = new FormControl('');
