@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   @HostListener('keydown.enter')
   fillInputOnEnter() {
-    if (this.filteredValues.length === 1) {
+    if (this.filteredValues.length > 0) {
       this.fillInput(this.filteredValues[0]);
     }
   }
