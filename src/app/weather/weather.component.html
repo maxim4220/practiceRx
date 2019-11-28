@@ -1,8 +1,17 @@
+<button (click)="showWeatherAsIs(requestParams)">Regular</button>
+<button (click)="showWeatherInOrder(requestParams)">concalMap</button>
+<button (click)="showSwitchWeather(requestParams)">switchMap</button>
+<button (click)="showParallelWeather(requestParams)">mergeMap</button>
+<button (click)="showForkWeather(requestParams)">forkJoin</button>
+<button (click)="clear()">Clear</button>
+<p>** Request order: London, Kiev, Moscow, Rome</p>
 <ng-container *ngFor="let w of weatherData">
-    <h3>Name:{{w.name}}</h3>
-    <h3>Temp:{{w.main.temp}}</h3>
-    <h3>Desc:{{w.weather[0].description}}</h3>
-    <h3>Wind speed:{{w.wind.speed}}</h3>
-    <h3>Clouds:{{w.clouds.all}}</h3>
+    <div class="ap-city-block">
+        <h3>Name:{{w.name}}</h3>
+        <h3>Temp:{{w.main.temp}}</h3>
+        <h3>Desc:{{w.weather[0].description}}</h3>
+        <h3>Wind speed:{{w.wind.speed}}</h3>
+        <h3>Clouds:{{w.clouds.all}}</h3>
+    </div>
     <br>
 </ng-container>

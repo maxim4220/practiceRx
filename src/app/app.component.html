@@ -1,23 +1,27 @@
 <div class="ap-container">
   <h1 id="main_title">Welcome to type ahead, control value accessor and RxJs practice</h1>
 
-  <input [formControl]="searchState" class="form-control" placeholder="Search US state..."
-         type="text"/>
+  <form>
+    <input [formControl]="searchState" class="form-control" placeholder="Search US state..." type="text" />
+    <app-autocomplete [formControl]="options">
+      <ng-container autocompleteOptions>
+        <button *ngIf="filteredValues?.length === 0 && searchState.value" class="btn btn-light ap-ahead" disabled>No
+          result...
+        </button>
+        <button (click)="fillInput(val)" (mouseover)="selectActiveMatch(val, true)"
+          (mouseout)="selectActiveMatch(val, false)" *ngFor="let val of filteredValues"
+          [hidden]="val === searchState.value" [innerHTML]=" val | highlight : searchState.value"
+          class="btn btn-light ap-ahead" type="button"></button>
+        <br>
+      </ng-container>
+    </app-autocomplete>
+  </form>
+
+
   <!-- <app-autocomplete [options]="states" [searchValue]="searchState.value" (autocomplete)="getSearchOutput($event)">
   </app-autocomplete> -->
 
-  <app-autocomplete>
-    <ng-container autocompleteOptions>
-      <button *ngIf="filteredValues?.length === 0 && searchState.value" class="btn btn-light ap-ahead" disabled>No
-        result...
-      </button>
-      <button (click)="fillInput(val)" (mouseover)="selectActiveMatch(val, true)"
-        (mouseout)="selectActiveMatch(val, false)" *ngFor="let val of filteredValues"
-        [hidden]="val === searchState.value" [innerHTML]=" val | highlight : searchState.value"
-        class="btn btn-light ap-ahead" type="button"></button>
-      <br>
-    </ng-container>
-  </app-autocomplete>
+
 
   <div class="mt-4">
     <app-select-rating [formControl]="stars" [params]="ratingParams"></app-select-rating>

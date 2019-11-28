@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @HostListener('keydown.enter',)
+  @HostListener('keydown.enter')
   fillInputOnEnter(event) {
     if (this.filteredValues.length > 0) {
       if (this.isHovered) {
@@ -23,6 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public title = 'practiceRx';
   // TypeAhead properties
   public searchState: FormControl = new FormControl('');
+  public options: FormControl = new FormControl('');
+
   public filteredValues = [];
   public states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
     'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -71,12 +73,12 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  public selectActiveMatch(value: string, active: boolean):void {
-   if(active) {
-    this.isHovered = value;
-   } else {
-     this.isHovered = null;
-   }
+  public selectActiveMatch(value: string, active: boolean): void {
+    if (active) {
+      this.isHovered = value;
+    } else {
+      this.isHovered = null;
+    }
   }
 
 }
