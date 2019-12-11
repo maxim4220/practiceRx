@@ -1,7 +1,8 @@
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CustomOptionsValidator } from './ui/validators/custom-options.validator';
 
 @Component({
   selector: 'app-root',
@@ -9,22 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @HostListener('keydown.enter')
-  fillInputOnEnter(event) {
-    if (this.filteredValues.length > 0) {
-      if (this.isHovered) {
-        this.fillInput(this.isHovered);
-      } else {
-        this.fillInput(this.filteredValues[0]);
-      }
-    }
-  }
-
+  @ViewChild('mydiv', { static: false }) mydiv: ElementRef;
   public title = 'practiceRx';
-  // TypeAhead properties
-  public searchState: FormControl = new FormControl('');
-  public options: FormControl = new FormControl('');
-
   public filteredValues = [];
   public states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
     'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -41,28 +28,34 @@ export class AppComponent implements OnInit, OnDestroy {
     maxStars: 8,
     totalStars: 10
   };
-
+  public searchForm: FormGroup;
+  public showOptions = false;
   private subs: Subscription;
-  private isHovered;
-  // public getSearchOutput(completeVal): void {
-  //   this.searchState.setValue(completeVal);
-  // }
+
+  constructor(private formBuilder: FormBuilder, ) {
+  }
 
   ngOnInit(): void {
-    this.getSearchResult();
+    this.searchForm = this.formBuilder.group({
+      searchState: [null],
+      options: [null, Validators.required],
+    }, {
+      validator: CustomOptionsValidator.CheckInvalidStates
+    });
+
+    this.onChanges();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  public fillInput(state): void {
-    this.searchState.setValue(state);
-    this.filteredValues = null;
+  public getSearchOutput(val) {
+    this.searchForm.get('searchState').setValue(val);
   }
 
-  private getSearchResult(): void {
-    this.subs = this.searchState.valueChanges
+  private onChanges(): void {
+    this.subs = this.searchForm.get('searchState').valueChanges
       .pipe(
         debounceTime(200),
         distinctUntilChanged(),
@@ -70,15 +63,10 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe(val => {
         this.filteredValues = val;
+        if (this.filteredValues.length > 0) {
+          this.showOptions = true;
+        }
       });
-  }
-
-  public selectActiveMatch(value: string, active: boolean): void {
-    if (active) {
-      this.isHovered = value;
-    } else {
-      this.isHovered = null;
-    }
   }
 
 }

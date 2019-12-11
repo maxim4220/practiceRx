@@ -6,12 +6,12 @@
 <button (click)="clear()">Clear</button>
 <p>** Request order: London, Kiev, Moscow, Rome</p>
 <ng-container *ngFor="let w of weatherData">
-    <div class="ap-city-block">
-        <h3>Name:{{w.name}}</h3>
-        <h3>Temp:{{w.main.temp}}</h3>
-        <h3>Desc:{{w.weather[0].description}}</h3>
-        <h3>Wind speed:{{w.wind.speed}}</h3>
-        <h3>Clouds:{{w.clouds.all}}</h3>
-    </div>
-    <br>
+  <div class="ap-city-block">
+    <h3>Name:{{w.name}}</h3>
+    <h3>Temp:{{w.main.temp}}</h3>
+    <h3>Desc:{{w.weather[0].description}}</h3>
+    <h3>Wind speed:{{w.wind.speed}}</h3>
+    <h3>Clouds:{{w.clouds.all}}</h3>
+  </div>
+  <br>
 </ng-container>

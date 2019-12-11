@@ -1,25 +1,46 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-autocomplete',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR, multi: true, useExisting: forwardRef(() => AutocompleteComponent),
+    },
+  ],
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
 
-export class AutocompleteComponent {
+export class AutocompleteComponent implements ControlValueAccessor {
+  @Input() params = [];
+  @Input() sv;
+  @Output() autocomplete = new EventEmitter<string>();
 
-  // @Input() options = [];
-  // @Input() searchValue: string;
-  // @Output() autocomplete = new EventEmitter<string>();
-  // public filteredValues = [];
-  // ngOnChanges() {
-  //   this.filteredValues = this.searchValue.length < 2 ? [] : this.options.filter(v => v.toLowerCase().indexOf(this.searchValue.toLowerCase()) > -1).slice(0, 10);
-  // }
-  // public emitAutocomplete(val) {
-  //   this.autocomplete.emit(val);
-  // }
+  public currentValue: string;
+  public stateIcons = ['fa fa-quora', 'fa fa-bank', 'fa fa-bus', 'fa fa-building', 'fa fa-university'];
+  public onChanged: (val) => void;
+  public onTouched: () => void;
 
-  @Input() ngTemplateOutlet: TemplateRef<any> | null;
-  public showAutoComplete = true;
+  public writeValue(val: string): void {
+    this.currentValue = val;
+  }
+
+
+  public registerOnChange(fn: (option: number) => void): void {
+    this.onChanged = fn;
+  }
+
+  public registerOnTouched(fn): void {
+    this.onTouched = fn;
+  }
+
+  public setOption(option: string): void {
+    this.currentValue = option;
+    this.onChanged(option);
+    this.onTouched();
+    this.params = [];
+    this.autocomplete.emit(option);
+  }
 
 }

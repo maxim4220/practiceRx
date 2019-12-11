@@ -1,17 +1,9 @@
-<!-- <ng-container *ngFor="let val of filteredValues">
-    <button [hidden]="val === searchValue" (click)="emitAutocomplete(val)" type="button" class="btn btn-light"
-        [innerHTML]=" val | highlight : searchValue"></button> <br>
-</ng-container> -->
-
-<!-- parent empty div is added so that we could apply required styles for the search options -->
-<ng-template #autocompleteBlock>
-    <div>
-        <ng-content select="[autocompleteOptions]"></ng-content>
-    </div>
-</ng-template>
-
-<ng-template #defaultBlock>
-    <button class="btn btn-light ap-ahead" disabled> start typing...</button>
-</ng-template>
-
-<ng-container *ngTemplateOutlet="showAutoComplete ? autocompleteBlock : defaultBlock"></ng-container>
+<div>
+  <ng-container *ngFor="let opt of params">
+    <button (click)="setOption(opt)" *ngIf="opt !== sv" [disabled]="opt === 'Nevada'" class="btn btn-light ap-ahead"
+            type="button">
+      <i [innerHTML]=" opt | highlight : sv" class="fa fa-university"></i>
+    </button>
+    <br>
+  </ng-container>
+</div>

@@ -4,5 +4,5 @@ export interface RatingParams {
   // highest rate for the user to select
   maxStars: number;
   // total number of stars to choose from
-  totalStars: number
+  totalStars: number;
 }
