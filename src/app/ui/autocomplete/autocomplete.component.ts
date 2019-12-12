@@ -14,7 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export class AutocompleteComponent implements ControlValueAccessor {
   @Input() params = [];
-  @Input() sv;
+  @Input() sv: string;
   @Output() autocomplete = new EventEmitter<string>();
 
   public currentValue: string;

@@ -24,7 +24,6 @@ export class FormControlValidationMsgDirective implements OnInit, OnDestroy {
     this.errorSpanId = this.validationMsgId + new Date() + '-error-msg';
     this.statusChangeSubscription = this.control.statusChanges.subscribe(
       (status) => {
-        console.log('STATUS', status);
         if (status === 'INVALID') {
           this.showError();
         } else {
