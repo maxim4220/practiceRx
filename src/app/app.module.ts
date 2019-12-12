@@ -9,7 +9,6 @@ import { HighlightSearch } from './ui/pipes/hightlight.pipe';
 import { WeatherComponent } from './weather/weather.component';
 import { WeatherService } from './services/weather.service';
 import { HttpClientModule } from '@angular/common/http';
-import { SearchListenerDirective } from './ui/directives/fill-search.directive';
 import { FormControlValidationMsgDirective } from './ui/directives/form-error.directive';
 import { ValidationMsgService } from './services/validation.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +21,6 @@ import { MatButtonModule } from '@angular/material';
     AutocompleteComponent,
     HighlightSearch,
     WeatherComponent,
-    SearchListenerDirective,
     FormControlValidationMsgDirective
   ],
   imports: [
