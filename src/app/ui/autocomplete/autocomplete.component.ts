@@ -18,7 +18,6 @@ export class AutocompleteComponent implements ControlValueAccessor {
   @Output() autocomplete = new EventEmitter<string>();
 
   public currentValue: string;
-  public stateIcons = ['fa fa-quora', 'fa fa-bank', 'fa fa-bus', 'fa fa-building', 'fa fa-university'];
   public onChanged: (val) => void;
   public onTouched: () => void;
 

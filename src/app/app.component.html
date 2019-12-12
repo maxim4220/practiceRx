@@ -6,7 +6,6 @@
     <input id="ap-input" class="form-control" formControlName="searchState" placeholder="Search US state..."
       search-listener type="text" appFormControlValidationMsg validationMsgId="searchState" />
 
-
     <app-autocomplete (autocomplete)="getSearchOutput($event)" [params]="filteredValues"
       [sv]="searchForm.controls.searchState.value" formControlName="options">
     </app-autocomplete>
@@ -24,4 +23,5 @@
   </div>
 
   <app-weather></app-weather>
+
 </div>

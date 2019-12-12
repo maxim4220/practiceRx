@@ -9,6 +9,7 @@ import { ValidationMsgService } from 'src/app/services/validation.service';
 })
 export class FormControlValidationMsgDirective implements OnInit, OnDestroy {
 
+  // tslint:disable-next-line:no-input-rename
   @Input('validationMsgId') validationMsgId: string;
   errorSpanId = '';
   statusChangeSubscription: Subscription;
@@ -53,7 +54,7 @@ export class FormControlValidationMsgDirective implements OnInit, OnDestroy {
     const valErrors: ValidationErrors = this.control.errors;
     const firstKey = Object.keys(valErrors)[0];
     const errorMsg = this.validationMsgService.getValidationMsg(firstKey);
-    const errSpan = '<span style="color:red;" id="' + this.errorSpanId + '">' + errorMsg + '</span>';
+    const errSpan = '<span class="ap-error-msg" id="' + this.errorSpanId + '">' + errorMsg + '</span>';
     this.elRef.nativeElement.parentElement.insertAdjacentHTML('beforeend', errSpan);
   }
 

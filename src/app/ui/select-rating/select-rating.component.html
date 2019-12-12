@@ -1,4 +1,4 @@
-<ng-container *ngFor="let star of [].constructor(params.totalStars); let i = index">
+<ng-container *ngFor="let s of [].constructor(params.totalStars); let i = index">
     <span (click)="setRating(i+1)" (mouseenter)="mouseMovement(i + 1, true)" (mouseleave)="mouseMovement(i + 1, false)"
           [ngClass]="{'hovered': i+1 <= currentStar}" class="fa fa-star">
     </span>

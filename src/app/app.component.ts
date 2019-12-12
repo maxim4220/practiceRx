@@ -1,5 +1,5 @@
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CustomOptionsValidator } from './ui/validators/custom-options.validator';
@@ -10,7 +10,6 @@ import { CustomOptionsValidator } from './ui/validators/custom-options.validator
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @ViewChild('mydiv', { static: false }) mydiv: ElementRef;
   public title = 'practiceRx';
   public filteredValues = [];
   public states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
